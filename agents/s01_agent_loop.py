@@ -29,8 +29,10 @@ import subprocess
 
 try:
     import readline
-    # #143 UTF-8 backspace fix for macOS libedit
-    readline.parse_and_bind('set bind-tty-special-chars off')
+    # #143 UTF-8 backspace fix for macOS libedit 为了了在 macOS 上正确处理 UTF-8 字符，
+    # 特别是当使用 libedit 作为 readline 的替代品时，我们需要禁用 bind-tty-special-chars 选项。
+    # 这可以通过以下命令实现：
+    readline.parse_and_bind('set bind-tty-special-chars off')  #
     readline.parse_and_bind('set input-meta on')
     readline.parse_and_bind('set output-meta on')
     readline.parse_and_bind('set convert-meta off')
@@ -102,8 +104,8 @@ def agent_loop(messages: list):
 
 
 if __name__ == "__main__":
-    history = []
-    while True:
+    history = [] # 存储对话历史
+    while True: # 主循环，持续接收用户输入并处理
         try:
             query = input("\033[36ms01 >> \033[0m")
         except (EOFError, KeyboardInterrupt):
